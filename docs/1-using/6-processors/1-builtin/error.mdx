@@ -5,7 +5,7 @@ title: 'error'
 sidebar_position: 9
 ---
 
-import ReactDiffViewer from 'react-diff-viewer';
+import ReactDiffViewer from 'react-diff-viewer-continued';
 import Chip from '@mui/material/Chip';
 import Box from "@mui/system/Box";
 import Tabs from '@theme/Tabs';
@@ -20,7 +20,7 @@ Returns an error for all records that get passed to the processor.
 Any time a record is passed to this processor it returns an error,
 which results in the record being sent to the DLQ if it's configured, or the pipeline stopping.
 
-**Important:** Make sure to add a [condition](https://conduit.io/docs/using/processors/conditions)
+**Important:** Make sure to add a [condition](https://conduitio.github.io/docs/using/processors/conditions)
 to this processor, otherwise all records will trigger an error.
 
 ## Configuration parameters
@@ -178,5 +178,3 @@ pipelines:
 ```
 
 
-
-![scarf pixel conduit-site-docs-using-processors](https://static.scarf.sh/a.png?x-pxid=02ff4382-6501-4410-b523-fa8e7f879b00)

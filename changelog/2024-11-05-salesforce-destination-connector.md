@@ -21,5 +21,3 @@ For detailed instructions on setting up and using the new Destination feature, r
 :::
 
 This release marks a significant step towards enhancing the integration capabilities of the Conduit Salesforce Connector, providing a robust solution for real-time data synchronization with Salesforce.
-
-![scarf pixel conduit-site-changelog](https://static.scarf.sh/a.png?x-pxid=b43cda70-9a98-4938-8857-471cc05e99c5)

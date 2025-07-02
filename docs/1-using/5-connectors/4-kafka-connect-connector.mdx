@@ -81,7 +81,7 @@ Now that the Kafka Connect connectors included in `lib`, we can use it in a pipe
 
 1. [Install Conduit](https://github.com/ConduitIO/conduit#installation-guide).
 2. Create a pipeline configuration file: Create a folder called `pipelines` at the same level as your Conduit 
-binary. Inside of that folder create a file named `jdbc-to-file.yml`, check [Specifications](https://conduit.io/docs/using/pipelines/configuration-file)
+binary. Inside of that folder create a file named `jdbc-to-file.yml`, check [Specifications](https://conduitio.github.io/docs/using/pipelines/configuration-file)
 for more details about Pipeline Configuration Files.
 
 ````yaml
@@ -114,5 +114,3 @@ pipelines:
 Note that the `wrapper.connector.class` should be a class which is present on the classpath, i.e. in one of the JARs in
 the `libs` directory.
 For more information, check the [Wrapper Configuration](https://github.com/ConduitIO/conduit-kafka-connect-wrapper#configuration) section.
-
-![scarf pixel conduit-site-docs-using-connectors](https://static.scarf.sh/a.png?x-pxid=53743422-c614-4e45-acaa-f1f9f604321e)

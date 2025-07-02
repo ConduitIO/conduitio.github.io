@@ -5,7 +5,7 @@ title: 'clone'
 sidebar_position: 4
 ---
 
-import ReactDiffViewer from 'react-diff-viewer';
+import ReactDiffViewer from 'react-diff-viewer-continued';
 import Chip from '@mui/material/Chip';
 import Box from "@mui/system/Box";
 import Tabs from '@theme/Tabs';
@@ -22,7 +22,7 @@ outputs the original record plus N clones (for a total of N+1 records). Each clo
 is identical to the original, except the metadata field `clone.index` is
 set to the clone's index (0 for the original, 1 to N for the clones).
 
-**Important:** Add a [condition](https://conduit.io/docs/using/processors/conditions)
+**Important:** Add a [condition](https://conduitio.github.io/docs/using/processors/conditions)
 to this processor if you only want to clone some records.
 
 **Important:** This processor currently only works using the pipeline architecture
@@ -180,5 +180,3 @@ pipelines:
 ```
 
 
-
-![scarf pixel conduit-site-docs-using-processors](https://static.scarf.sh/a.png?x-pxid=02ff4382-6501-4410-b523-fa8e7f879b00)
