@@ -2,8 +2,9 @@
 
 This app is built using [Docusaurus 3](https://docusaurus.io/).
 
-The Conduit Documentation contains:
-- Conduit Documentation
+> [!IMPORTANT]
+> Video files in this repository are stored using [Git LFS](https://git-lfs.com).
+> Make sure to install it before cloning the repository.
 
 ## Getting Started
 
