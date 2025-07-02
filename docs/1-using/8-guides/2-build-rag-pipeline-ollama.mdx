@@ -2,6 +2,8 @@
 title: "How to Build a Real-Time AI RAG Pipeline"
 ---
 
+import ReactPlayer from 'react-player';
+
 In this guide, we will build a complete, end-to-end Retrieval-Augmented
 Generation (RAG) system using Conduit. This powerful pipeline will automatically
 ingest new documents, process them into a queryable format, and make them
@@ -20,14 +22,12 @@ This first part introduces the problem we aim to solve and gives a high-level
 overview of the solution's architecture.
 
 <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%' }}>
-  <iframe
-    src="https://www.loom.com/embed/855eeea8cf2e439c81650dcb5c16277e?sid=6974e996-8e73-4fa0-b2fc-1084062627a3?hideEmbedTopBar=true&hide_title=true&hide_owner=true&hide_share=true&hide_speed=true"
-    webkitallowfullscreen
-    frameborder="0"
-    mozallowfullscreen
-    allowFullScreen
-    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-  ></iframe>
+<ReactPlayer
+  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+  controls
+  playIcon
+  src='/video/rag-guide-01-building-an-ai-pipeline.mp4'
+/>
 </div>
 
 ### The Problem
@@ -107,14 +107,12 @@ raw data.
 ![Architecture Diagram](/img/guide-rag-ollama-architecture-part2.png)
 
 <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%' }}>
-  <iframe
-    src="https://www.loom.com/embed/d213d448ebc349ff8e5a22d7884c2f30?sid=1855d6ef-7cea-4525-a7eb-d151f198750c?hideEmbedTopBar=true&hide_title=true&hide_owner=true&hide_share=true&hide_speed=true"
-    webkitallowfullscreen
-    frameborder="0"
-    mozallowfullscreen
-    allowFullScreen
-    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-  ></iframe>
+<ReactPlayer
+  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+  controls
+  playIcon
+  src='/video/rag-guide-02-reading-from-s3.mp4'
+/>
 </div>
 
 ### 1: Prerequisites
@@ -266,14 +264,12 @@ processors to partition the PDF content into smaller chunks using the
 ![Architecture Diagram](/img/guide-rag-ollama-architecture-part3.png)
 
 <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%' }}>
-  <iframe
-    src="https://www.loom.com/embed/7065a048cbde4a43925c6528f6dec1a9?sid=1dd3b5f4-a5d2-47e5-8401-b1670a2a4977?hideEmbedTopBar=true&hide_title=true&hide_owner=true&hide_share=true&hide_speed=true"
-    webkitallowfullscreen
-    frameborder="0"
-    mozallowfullscreen
-    allowFullScreen
-    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-  ></iframe>
+<ReactPlayer
+  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+  controls
+  playIcon
+  src='/video/rag-guide-03-chunking-documents.mp4'
+/>
 </div>
 
 ### 1: Set Up the Unstructured.io Service
@@ -357,7 +353,14 @@ text.
 
 ![Architecture Diagram](/img/guide-rag-ollama-architecture-part4.png)
 
-[TODO: VIDEO PLACEHOLDER FOR PART 4]
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%' }}>
+<ReactPlayer
+  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+  controls
+  playIcon
+  src='/video/rag-guide-04-creating-embeddings.mp4'
+/>
+</div>
 
 ### 1: Set Up Ollama
 
