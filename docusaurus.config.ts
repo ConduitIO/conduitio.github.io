@@ -47,7 +47,7 @@ const config: Config = {
         },
         docs: {
           sidebarPath: './src/sidebars/sidebars.ts',
-          editUrl: 'https://github.com/conduitio/conduit-site/edit/main/',
+          editUrl: 'https://github.com/conduitio/conduitio.github.io/edit/main/',
           showLastUpdateTime: true,
         },
         theme: {
