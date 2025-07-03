@@ -198,50 +198,50 @@ these secrets, we will use
 1. **Update the pipeline YAML** file located at `pipelines/ai-showcase.yaml` and
    modify the `s3-source` connector settings to use environment variables.
 
-```yaml
-version: "2.2"
-pipelines:
-  - id: ai-showcase
-    status: running
-    name: ai-showcase
-    connectors:
-      - id: s3-source
-        type: source
-        plugin: s3
-        settings:
-          aws.access_key_id: ${AWS_ACCESS_KEY_ID}
-          aws.secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-          aws.region: ${AWS_REGION}
-          aws.bucket: ${AWS_BUCKET}
-      - id: log-destination
-        type: destination
-        plugin: log
-        settings:
-          level: info
-```
+   ```yaml
+   version: "2.2"
+   pipelines:
+     - id: ai-showcase
+       status: running
+       name: ai-showcase
+       connectors:
+         - id: s3-source
+           type: source
+           plugin: s3
+           settings:
+             aws.access_key_id: ${AWS_ACCESS_KEY_ID}
+             aws.secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+             aws.region: ${AWS_REGION}
+             aws.bucket: ${AWS_BUCKET}
+         - id: log-destination
+           type: destination
+           plugin: log
+           settings:
+             level: info
+   ```
 
 2. **Create a `.env` file** in your project directory to store your credentials.
 
-```bash
-export AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY"
-export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_KEY"
-export AWS_REGION="us-east-1"
-export AWS_BUCKET="your-s3-bucket-name"
-```
+   ```bash
+   export AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY"
+   export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_KEY"
+   export AWS_REGION="us-east-1"
+   export AWS_BUCKET="your-s3-bucket-name"
+   ```
 
 3. **Source the environment variables** into your shell session so Conduit can
    access them.
 
-```bash
-source .env
-```
+   ```bash
+   source .env
+   ```
 
 ### 5: Run and Test the Pipeline
 
 Now, run the pipeline:
 
-  ```bash
-  conduit run
+```bash
+conduit run
 ```
 
 Conduit is now monitoring your S3 bucket for changes. To test it, upload a file
@@ -476,12 +476,264 @@ objects, where each object contains a `text` field and its corresponding
 
 -----
 
-## Part 5: Storing Data in Supabase
+### Part 5: Storing Data in Supabase & Using the Chatbot
 
-In this final part, we will replace the `log` destination with a `postgres`
-connector to load our processed data into Supabase. This will make the data
-available to our chatbot UI.
+In this final part, we will complete the pipeline by connecting it to a
+real-time database and user interface. We will replace the `log` destination
+with a `postgres` connector to load our processed data into a Supabase instance.
+This makes the data available to our Chatbot UI, bringing the entire RAG system
+to life.
 
-[TODO: VIDEO PLACEHOLDER FOR PART 5]
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%' }}>
+    <ReactPlayer
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        controls
+        playIcon
+        src='/video/rag-guide-05-using-chatbotui.mp4'
+    />
+</div>
 
-TODO: text
+#### 1: Set Up the Chatbot UI and Supabase
+
+The frontend for our RAG system is an open-source
+[Chatbot UI](https://github.com/mckaywrigley/chatbot-ui) that uses Supabase as
+its backend. You will need to set up both components locally.
+
+1. **Clone and Install the Chatbot UI**:
+
+   First, clone the forked repository which contains the necessary configurations
+   for this project and install its dependencies.
+
+   ```bash
+   git clone git@github.com:ConduitIO/chatbot-ui.git
+   cd ./chatbot-ui && \
+   npm install
+   ```
+
+2. **Install and Configure Supabase**:
+
+   The Chatbot UI repository contains detailed instructions for setting up a
+   local Supabase instance. Please follow the steps in the project's
+   [README file](https://github.com/ConduitIO/chatbot-ui?tab=readme-ov-file#3-install-supabase--run-locally).
+   This process involves installing Supabase, running database migrations, and
+   getting the necessary credentials to connect the UI to its backend.
+
+3. **Run the Chatbot UI**:
+
+   Once Supabase is configured and running, start the Chatbot UI application.
+
+#### 2: Configure the Postgres Destination in Conduit
+
+Now, we need to configure Conduit to send the processed data to the Supabase
+database.
+
+1. **Add Supabase Credentials to `.env`**:
+
+   Add the connection details for your local Supabase instance to your `.env`
+   file. Supabase provides these values when you initialize the project.
+
+   ```bash
+   export SUPABASE_USERNAME=postgres
+   export SUPABASE_PASSWORD=postgres
+   export SUPABASE_ADDRESS=127.0.0.1:54322
+    ```
+
+2. **Replace the Destination in `ai-showcase.yaml`**:
+
+   In your pipeline configuration file, remove the `log-destination` and
+   replace it with a `postgres` destination.
+
+   ```yaml
+       # ...
+       connectors:
+         - id: s3-source
+           # ... (s3 source configuration)
+         - id: supabase
+           type: destination
+           plugin: postgres
+           settings:
+             url: "postgresql://${SUPABASE_USERNAME}:${SUPABASE_PASSWORD}@${SUPABASE_ADDRESS}/postgres"
+   ```
+
+#### 3: Prepare Data for the Chatbot UI Schema
+
+The Chatbot UI requires data to be structured across several specific tables. We
+need to add several more processors to transform our single record into multiple
+records that match this schema.
+
+First, you'll need a few static UUIDs from your Chatbot UI installation for the
+user, workspace, and collection. In the forked project of Chatbot UI, we
+prepared these values for you. We will use these values as environment
+variables in our pipeline configuration, so we need to add them to our
+`.env` file:
+
+```bash
+export CHATBOTUI_USER_ID=e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa
+export CHATBOTUI_COLLECTION_ID=17ebf136-b08d-443e-b0d0-ac45369ad31a
+export CHATBOTUI_WORKSPACE_ID=0fa35765-d33f-4bc3-8421-6f0d6bb46a03
+```
+
+#### 4: Add the Final Processor Chain
+
+This final processor chain is the most complex. It takes the array of chunks and
+embeddings and transforms it into separate records for each of the required
+database tables.
+
+The Postgres destination requires records to contain structured data and uses
+each field in the `.Payload.After` object to populate the database columns. The
+`.Key` field is also inserted, and it's additionally used to identify the record
+in the database in case of updates.
+
+The processors need to generate a unique ID for each file, since we need it to
+link the records across different tables. The `file_items` table will contain
+the individual text chunks and their embeddings, while the `files`,
+`collection_files`, and `file_workspaces` tables will store metadata about the
+file and its associations.
+
+Each table has a specific structure, dictated by the Chatbot UI schema. Add the
+following processors to the end of your `processors` list in `ai-showcase.yaml`
+to prepare the records accordingly.
+
+```yaml
+      # ... after merge-chunks-and-embeddings processor
+
+      # Generate a unique ID for the file
+      - id: generate-id
+        plugin: "custom.javascript"
+        settings:
+          script: |
+            function process(rec) {
+              rec.Metadata["file_id"] = uuidv4();
+              return rec;
+            }
+
+            function uuidv4() {
+              return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0;
+                var v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+              });
+            }
+
+      # Split the single record into multiple records, one for each item
+      - id: split-items
+        plugin: "split"
+        settings:
+          field: ".Payload.After.items"
+
+      # Prepare the records for the 'file_items' table
+      - id: prepare-file-items-record
+        plugin: "custom.javascript"
+        settings:
+          script: |
+            function process(rec) {
+              rec.Metadata["opencdc.collection"] = "file_items";
+
+              data = StructuredData();
+              data["file_id"] = rec.Metadata["file_id"];
+              data["user_id"] = "${CHATBOTUI_USER_ID}";
+              data["content"] = rec.Payload.After.items.text;                              // The text content of the file item
+              data["local_embedding"] = JSON.stringify(rec.Payload.After.items.embedding); // The local embedding of the file item, JSON representation
+              data["tokens"] = rec.Payload.After.items.text.trim().split(/\s+/).length;    // Naive token count based on whitespace splitting
+
+              // Store the file name in the metadata before removing the key
+              rec.Metadata["file_name"] = String.fromCharCode.apply(String, rec.Key);
+              // Empty key, the database will generate a UUID for us
+              rec.Key = StructuredData();
+
+              rec.Payload.After = data;
+              return rec;
+            }
+
+      # Create 3 clones of the first record to insert into other tables
+      - id: clone-3-times
+        plugin: clone
+        condition: '{{ eq (index .Metadata "split.index") "0" }}'
+        settings:
+          count: 3
+
+      # Prepare a clone for the 'files' table
+      - id: prepare-files-record
+        plugin: "custom.javascript"
+        condition: '{{ eq (index .Metadata "clone.index") "0" }}'
+        settings:
+          script: |
+            function process(rec) {
+              rec.Metadata["opencdc.collection"] = "files";
+
+              rec.Payload.After = StructuredData();
+              rec.Payload.After["id"] = rec.Metadata["file_id"];
+              rec.Payload.After["user_id"] = "${CHATBOTUI_USER_ID}";
+              rec.Payload.After["description"] = rec.Metadata["title"];                        // This is the S3 metadata field "title"
+              rec.Payload.After["file_path"] = "${CHATBOTUI_USER_ID}/foo.pdf"; // This is a placeholder for now, we don't upload the actual file
+              rec.Payload.After["name"] = rec.Metadata["file_name"].split('/').pop();          // Use only the file name, not the whole path
+              rec.Payload.After["size"] = 0;                                                   // TODO check if AWS provides file size in the metadata
+              rec.Payload.After["tokens"] = 0;                                                 // Not sure how to calculate tokens for a file, so we set it to 0 for now
+              rec.Payload.After["type"] = "application/pdf";                                   // We're only processing PDF files in this pipeline
+
+              rec.Key = StructuredData(); // Empty key, the database will generate a UUID for us
+
+              return rec;
+            }
+
+      # Prepare a clone for the 'collection_files' table
+      - id: prepare-collection-files-record
+        plugin: "custom.javascript"
+        condition: '{{ eq (index .Metadata "clone.index") "1" }}'
+        settings:
+          script: |
+            function process(rec) {
+              rec.Metadata["opencdc.collection"] = "collection_files";
+
+              rec.Key = StructuredData();
+              rec.Key["file_id"] = rec.Metadata["file_id"];
+              rec.Key["collection_id"] = "${CHATBOTUI_COLLECTION_ID}";
+
+              rec.Payload.After = StructuredData();
+              rec.Payload.After["user_id"] = "${CHATBOTUI_USER_ID}";
+
+              return rec;
+            }
+
+      # Prepare a clone for the 'file_workspaces' table
+      - id: prepare-file-workspaces-record
+        plugin: "custom.javascript"
+        condition: '{{ eq (index .Metadata "clone.index") "2" }}'
+        settings:
+          script: |
+            function process(rec) {
+              rec.Metadata["opencdc.collection"] = "file_workspaces";
+
+              rec.Key = StructuredData();
+              rec.Key["file_id"] = rec.Metadata["file_id"];
+              rec.Key["workspace_id"] = "${CHATBOTUI_WORKSPACE_ID}";
+
+              rec.Payload.After = StructuredData();
+              rec.Payload.After["user_id"] = "${CHATBOTUI_USER_ID}";
+
+              return rec;
+            }
+```
+
+#### 5: Run the Final Pipeline
+
+You are now ready to run the complete pipeline.
+
+1.  **Source your environment variables**: `source .env`
+2.  **Run Conduit**: `conduit run --preview.pipeline-arch-v2`
+3.  **Upload documents**: Upload PDFs to your S3 bucket.
+
+:::note
+Note that you have to use the `--preview.pipeline-arch-v2` flag when running
+Conduit. This is because the pipeline uses the `split` and `clone` processors,
+which are only available in the new pipeline architecture.
+:::
+
+As Conduit runs, you will see new rows appearing in your Supabase tables:
+`files`, `file_items`, `file_workspaces`, and `collection_files`. Open your
+Chatbot UI. It will now have access to the documents processed by the pipeline.
+You can ask it questions and receive answers based on the content of the PDFs,
+with the system updating in real-time as new documents are added.
+
+Congratulations! You have successfully built a powerful, real-time RAG system
+with Conduit.
