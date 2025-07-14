@@ -4,7 +4,7 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/ConduitIO/conduit",
-    "stargazer_count": 533,
+    "stargazer_count": 538,
     "fork_count": 54,
     "releases": null
   },
@@ -33,6 +33,15 @@
     "url": "https://github.com/ConduitIO/conduit-site",
     "stargazer_count": 1,
     "fork_count": 7,
+    "releases": null
+  },
+  {
+    "name_with_owner": "ConduitIO/conduitio.github.io",
+    "description": "",
+    "created_at": "",
+    "url": "https://github.com/ConduitIO/conduitio.github.io",
+    "stargazer_count": 0,
+    "fork_count": 0,
     "releases": null
   },
   {
@@ -171,33 +180,6 @@
     "releases": null
   },
   {
-    "name_with_owner": "gopherslab/conduit-connector-google-sheets",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/gopherslab/conduit-connector-google-sheets",
-    "stargazer_count": 0,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
-    "name_with_owner": "gopherslab/conduit-connector-redis",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/gopherslab/conduit-connector-redis",
-    "stargazer_count": 1,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
-    "name_with_owner": "gopherslab/conduit-connector-zendesk",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/gopherslab/conduit-connector-zendesk",
-    "stargazer_count": 1,
-    "fork_count": 1,
-    "releases": null
-  },
-  {
     "name_with_owner": "hariso/conduit-connector-foo",
     "description": "",
     "created_at": "",
@@ -243,19 +225,10 @@
     "releases": null
   },
   {
-    "name_with_owner": "joeblew999/pb-stack",
+    "name_with_owner": "maha-mstfa/conduit-connector-slack",
     "description": "",
     "created_at": "",
-    "url": "https://github.com/joeblew999/pb-stack",
-    "stargazer_count": 1,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
-    "name_with_owner": "maha-hajja/conduit-connector-slack",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/maha-hajja/conduit-connector-slack",
+    "url": "https://github.com/maha-mstfa/conduit-connector-slack",
     "stargazer_count": 0,
     "fork_count": 0,
     "releases": null
@@ -319,15 +292,6 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/neha-Gupta1/conduit-connector-bigquery",
-    "stargazer_count": 0,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
-    "name_with_owner": "neovintage/conduit-connector-redis",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/neovintage/conduit-connector-redis",
     "stargazer_count": 0,
     "fork_count": 0,
     "releases": null
