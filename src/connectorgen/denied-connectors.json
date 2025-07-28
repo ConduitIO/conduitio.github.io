@@ -4,7 +4,7 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/ConduitIO/conduit",
-    "stargazer_count": 541,
+    "stargazer_count": 543,
     "fork_count": 54,
     "releases": null
   },
@@ -222,15 +222,6 @@
     "url": "https://github.com/hariso/custom-conduit",
     "stargazer_count": 0,
     "fork_count": 1,
-    "releases": null
-  },
-  {
-    "name_with_owner": "maha-mstfa/conduit-connector-slack",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/maha-mstfa/conduit-connector-slack",
-    "stargazer_count": 0,
-    "fork_count": 0,
     "releases": null
   },
   {
