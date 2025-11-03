@@ -126,15 +126,6 @@
     "releases": null
   },
   {
-    "name_with_owner": "alejandromav/conduit-connector-tinybird",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/alejandromav/conduit-connector-tinybird",
-    "stargazer_count": 1,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
     "name_with_owner": "brharrelldev/pulsar-connector",
     "description": "",
     "created_at": "",
