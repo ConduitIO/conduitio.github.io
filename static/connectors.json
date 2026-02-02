@@ -4676,7 +4676,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-log/releases/download/v0.7.3/conduit-connector-log_0.7.3_Linux_arm64.tar.gz",
             "created_at": "2025-06-03T13:21:31Z",
             "updated_at": "2025-06-03T13:21:31Z",
-            "download_count": 35,
+            "download_count": 36,
             "size": 6140471
           },
           {
@@ -13396,7 +13396,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-google-drive/releases/download/v0.1.0/conduit-connector-google-drive_0.1.0_Darwin_arm64.tar.gz",
             "created_at": "2025-05-08T16:18:48Z",
             "updated_at": "2025-05-08T16:18:49Z",
-            "download_count": 34,
+            "download_count": 35,
             "size": 7519659
           },
           {
@@ -14708,7 +14708,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mongo/releases/download/v0.2.2/conduit-connector-mongo_0.2.2_Linux_arm64.tar.gz",
             "created_at": "2025-03-14T10:37:02Z",
             "updated_at": "2025-03-14T10:37:03Z",
-            "download_count": 41,
+            "download_count": 42,
             "size": 7391352
           },
           {
@@ -15177,7 +15177,7 @@
     "created_at": "2024-06-04 14:47:18 +0000 UTC",
     "url": "https://github.com/conduitio-labs/conduit-connector-mysql",
     "stargazer_count": 2,
-    "fork_count": 2,
+    "fork_count": 3,
     "releases": [
       {
         "tag_name": "v0.2.0",
@@ -15218,7 +15218,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Linux_arm64.tar.gz",
             "created_at": "2025-05-12T10:59:38Z",
             "updated_at": "2025-05-12T10:59:38Z",
-            "download_count": 47,
+            "download_count": 48,
             "size": 8744809
           },
           {
@@ -15229,7 +15229,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Linux_x86_64.tar.gz",
             "created_at": "2025-05-12T10:59:38Z",
             "updated_at": "2025-05-12T10:59:38Z",
-            "download_count": 56,
+            "download_count": 57,
             "size": 9504027
           },
           {
@@ -15251,7 +15251,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Windows_x86_64.tar.gz",
             "created_at": "2025-05-12T10:59:38Z",
             "updated_at": "2025-05-12T10:59:38Z",
-            "download_count": 41,
+            "download_count": 42,
             "size": 9760336
           }
         ],
@@ -18265,7 +18265,7 @@
             "browser_download_url": "https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-snowflake/releases/download/v0.4.0/conduit-connector-snowflake_0.4.0_Windows_x86_64.tar.gz",
             "created_at": "2025-02-28T17:58:40Z",
             "updated_at": "2025-02-28T17:58:41Z",
-            "download_count": 39,
+            "download_count": 40,
             "size": 13273672
           }
         ],
