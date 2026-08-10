@@ -68,12 +68,12 @@ import Tooltip from '@mui/material/Tooltip';
 
 ## Latest release
 
-- [conduit-connector-mysql_0.2.0_Darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Darwin_arm64.tar.gz)
-- [conduit-connector-mysql_0.2.0_Darwin_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Darwin_x86_64.tar.gz)
-- [conduit-connector-mysql_0.2.0_Linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Linux_arm64.tar.gz)
-- [conduit-connector-mysql_0.2.0_Linux_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Linux_x86_64.tar.gz)
-- [conduit-connector-mysql_0.2.0_Windows_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Windows_arm64.tar.gz)
-- [conduit-connector-mysql_0.2.0_Windows_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.2.0/conduit-connector-mysql_0.2.0_Windows_x86_64.tar.gz)
+- [conduit-connector-mysql_0.3.0_Darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.3.0/conduit-connector-mysql_0.3.0_Darwin_arm64.tar.gz)
+- [conduit-connector-mysql_0.3.0_Darwin_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.3.0/conduit-connector-mysql_0.3.0_Darwin_x86_64.tar.gz)
+- [conduit-connector-mysql_0.3.0_Linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.3.0/conduit-connector-mysql_0.3.0_Linux_arm64.tar.gz)
+- [conduit-connector-mysql_0.3.0_Linux_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.3.0/conduit-connector-mysql_0.3.0_Linux_x86_64.tar.gz)
+- [conduit-connector-mysql_0.3.0_Windows_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.3.0/conduit-connector-mysql_0.3.0_Windows_arm64.tar.gz)
+- [conduit-connector-mysql_0.3.0_Windows_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-mysql/releases/download/v0.3.0/conduit-connector-mysql_0.3.0_Windows_x86_64.tar.gz)
 
 ## Description
 
@@ -265,10 +265,10 @@ pipelines:
           tableConfig.*.sortingColumn: ""
           # Maximum delay before an incomplete batch is read from the source.
           # Type: duration
-          sdk.batch.delay: "0"
+          sdk.batch.delay: "1s"
           # Maximum size of batch before it gets read from the source.
           # Type: int
-          sdk.batch.size: "0"
+          sdk.batch.size: "10000"
           # Specifies whether to use a schema context name. If set to false, no
           # schema context name will be used, and schemas will be saved with the
           # subject name specified in the connector (not safe because of name
