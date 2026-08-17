@@ -4,7 +4,7 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/ConduitIO/conduit",
-    "stargazer_count": 604,
+    "stargazer_count": 605,
     "fork_count": 61,
     "releases": null
   },
@@ -103,15 +103,6 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/ahamidi/conduit-connector-redis",
-    "stargazer_count": 0,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
-    "name_with_owner": "ahamidi/conduit-connector-rockset",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/ahamidi/conduit-connector-rockset",
     "stargazer_count": 0,
     "fork_count": 0,
     "releases": null
