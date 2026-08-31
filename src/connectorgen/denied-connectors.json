@@ -4,7 +4,7 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/ConduitIO/conduit",
-    "stargazer_count": 606,
+    "stargazer_count": 608,
     "fork_count": 62,
     "releases": null
   },
@@ -24,6 +24,15 @@
     "url": "https://github.com/ConduitIO/conduit-operator",
     "stargazer_count": 3,
     "fork_count": 1,
+    "releases": null
+  },
+  {
+    "name_with_owner": "ConduitIO/conduit-registry-ui",
+    "description": "",
+    "created_at": "",
+    "url": "https://github.com/ConduitIO/conduit-registry-ui",
+    "stargazer_count": 0,
+    "fork_count": 0,
     "releases": null
   },
   {
