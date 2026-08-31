@@ -1,0 +1,210 @@
+---
+IMPORTANT: This file was generated using src/connectorgen/main.go. DO NOT EDIT.
+
+title: "pgvector"
+description: "Conduit destination connector for pgvector (Postgres vector store)."
+---
+
+import ReactDiffViewer from 'react-diff-viewer-continued';
+import Chip from '@mui/material/Chip';
+import Box from "@mui/system/Box";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import Link from '@mui/material/Link';
+import StarIcon from '@mui/icons-material/Star';
+import Tooltip from '@mui/material/Tooltip';
+
+# pgvector
+
+<Box sx={{
+  display: 'flex',
+  alignItems: 'center',
+  gap: 2,
+  marginBottom: 4,
+  borderRadius: 1,
+  padding: 2,
+  backgroundColor: 'rgba(0, 0, 0, 0.03)'
+}}>
+  {/* Author info */}
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <span>Author: Meroxa, Inc.</span>
+    <Tooltip title="Created by the Conduit team">
+      <img src='/img/conduit/conduit-ring.png' width='18' alt="Conduit team logo" />
+    </Tooltip>
+  </Box>
+
+  {/* Divider */}
+  <Box sx={{ borderLeft: '1px solid rgba(0, 0, 0, 0.12)', height: 24 }} />
+
+  {/* GitHub link */}
+  <Link
+    href="https://github.com/ConduitIO/conduit-connector-pgvector"
+    target="_blank"
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 0.5,
+      color: 'inherit',
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    }}
+  >
+    <GitHubIcon sx={{ fontSize: '1.5rem' }} />
+  </Link>
+
+  {/* Stars */}
+  <Chip
+    icon={<StarIcon sx={{ fontSize: '1rem' }} />}
+    label="0"
+    size="small"
+    sx={{ height: 24 }}
+  />
+</Box>
+
+## Latest release
+
+- [conduit-connector-pgvector_0.1.0_Darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Darwin_arm64.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Darwin_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Darwin_x86_64.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Linux_arm64.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Linux_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Linux_i386.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Linux_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Linux_x86_64.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Windows_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Windows_arm64.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Windows_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Windows_i386.tar.gz)
+- [conduit-connector-pgvector_0.1.0_Windows_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/conduit-connector-pgvector_0.1.0_Windows_x86_64.tar.gz)
+- [pgvector_v0.1.0_darwin_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_darwin_amd64.tar.gz)
+- [pgvector_v0.1.0_darwin_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_darwin_amd64.tar.gz.sigstore.json)
+- [pgvector_v0.1.0_darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_darwin_arm64.tar.gz)
+- [pgvector_v0.1.0_darwin_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_darwin_arm64.tar.gz.sigstore.json)
+- [pgvector_v0.1.0_linux_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_linux_amd64.tar.gz)
+- [pgvector_v0.1.0_linux_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_linux_amd64.tar.gz.sigstore.json)
+- [pgvector_v0.1.0_linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_linux_arm64.tar.gz)
+- [pgvector_v0.1.0_linux_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-pgvector/releases/download/v0.1.0/pgvector_v0.1.0_linux_arm64.tar.gz.sigstore.json)
+
+## Description
+
+The pgvector destination connector is the flagship vector sink for Conduit's
+AI data pipeline (CDC -> chunk -> embed -> pgvector), keeping a RAG index
+fresh from Postgres.
+
+It is a write-only connector. Each incoming embedding record is upserted into
+a pgvector table keyed by the record's stable key (the chunk_id), using
+`INSERT ... ON CONFLICT (<key>) DO UPDATE`, so at-least-once redelivery
+converges to a single row rather than duplicating it.
+
+At pipeline start the connector validates the configured embedding
+`dimension` against the target table's `vector` column and fails fast with a
+stable, actionable error (`ai.vector_dimension_mismatch`) if they disagree,
+instead of failing silently on the first write.
+
+## Source Parameters
+
+Connector pgvector does not implement a source.
+
+## Destination Parameters
+
+```yaml
+version: 2.2
+pipelines:
+  - id: example
+    status: running
+    connectors:
+      - id: example-destination
+        type: destination
+        plugin: "pgvector"
+        name: example-destination
+        settings:
+          # Dimension is the embedding dimension the upstream model produces. It
+          # is validated against the target table's vector column at pipeline
+          # start (fail fast). There is no safe default, so it is required.
+          # Type: int
+          dimension: ""
+          # URL is the connection string for the target Postgres/pgvector
+          # database.
+          # Type: string
+          url: ""
+          # IDMetadataKey is the record metadata key carrying the deterministic
+          # chunk id ({source_key}:{index}), set by the chunking processor
+          # (default "ai.chunk.id") and preserved by the embedding processor.
+          # When present on a record it takes precedence over Record.Key as the
+          # upsert conflict target; when absent, Record.Key is used (slice-1
+          # behavior), so records written outside the chunking pipeline still
+          # work.
+          # Type: string
+          idMetadataKey: "ai.chunk.id"
+          # KeyColumn is the primary-key column used as the ON CONFLICT target
+          # for idempotent upserts. It holds the record's stable chunk_id.
+          # Type: string
+          keyColumn: "id"
+          # MetadataColumn is the JSONB column that receives the record's
+          # metadata. Leave empty to disable metadata writes.
+          # Type: string
+          metadataColumn: "metadata"
+          # SourceKeyColumn is the TEXT column that stores the source record's
+          # stable key, populated on every upsert. Deletes match on this column
+          # (not KeyColumn) so a source-record delete removes every chunk row
+          # ever derived from it, even when the chunk count has changed since
+          # the last embed (design doc §5's orphan-avoidance rule). Leave empty
+          # to disable source_key population, falling back to a
+          # delete-by-KeyColumn match — the slice-1 behavior, which can orphan
+          # rows and is not recommended for the RAG pipeline.
+          # Type: string
+          sourceKeyColumn: "source_key"
+          # SourceKeyMetadataKey is the record metadata key carrying the source
+          # record's key. The chunking processor sets this (default
+          # "ai.chunk.source_key") and the embedding processor preserves it.
+          # Required on every record when SourceKeyColumn is enabled.
+          # Type: string
+          sourceKeyMetadataKey: "ai.chunk.source_key"
+          # Table is the target table into which embedding rows are upserted.
+          # Supports a Go template evaluated per record (default: the record's
+          # OpenCDC collection), matching the Postgres connector's convention.
+          # Type: string
+          table: "{{ index .Metadata "opencdc.collection" }}"
+          # VectorColumn is the name of the pgvector `vector` column on the
+          # target table.
+          # Type: string
+          vectorColumn: "embedding"
+          # VectorField is the record payload field that carries the embedding
+          # vector (a numeric array).
+          # Type: string
+          vectorField: "vector"
+          # Maximum delay before an incomplete batch is written to the
+          # destination.
+          # Type: duration
+          sdk.batch.delay: "0"
+          # Maximum size of batch before it gets written to the destination.
+          # Type: int
+          sdk.batch.size: "0"
+          # Allow bursts of at most X records (0 or less means that bursts are
+          # not limited). Only takes effect if a rate limit per second is set.
+          # Note that if `sdk.batch.size` is bigger than `sdk.rate.burst`, the
+          # effective batch size will be equal to `sdk.rate.burst`.
+          # Type: int
+          sdk.rate.burst: "0"
+          # Maximum number of records written per second (0 means no rate
+          # limit).
+          # Type: float
+          sdk.rate.perSecond: "0"
+          # The format of the output record. See the Conduit documentation for a
+          # full list of supported formats
+          # (https://conduit.io/docs/using/connectors/configuration-parameters/output-format).
+          # Type: string
+          sdk.record.format: "opencdc/json"
+          # Options to configure the chosen output record format. Options are
+          # normally key=value pairs separated with comma (e.g.
+          # opt1=val2,opt2=val2), except for the `template` record format, where
+          # options are a Go template.
+          # Type: string
+          sdk.record.format.options: ""
+          # Whether to extract and decode the record key with a schema.
+          # Type: bool
+          sdk.schema.extract.key.enabled: "true"
+          # Whether to extract and decode the record payload with a schema.
+          # Type: bool
+          sdk.schema.extract.payload.enabled: "true"
+```
