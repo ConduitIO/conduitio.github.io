@@ -4,8 +4,8 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/ConduitIO/conduit",
-    "stargazer_count": 608,
-    "fork_count": 62,
+    "stargazer_count": 611,
+    "fork_count": 63,
     "releases": null
   },
   {
@@ -157,15 +157,6 @@
     "description": "",
     "created_at": "",
     "url": "https://github.com/devarismeroxa/conduit-connector-influxdb",
-    "stargazer_count": 0,
-    "fork_count": 0,
-    "releases": null
-  },
-  {
-    "name_with_owner": "devarispbrown/conduit-connector-weaviate",
-    "description": "",
-    "created_at": "",
-    "url": "https://github.com/devarispbrown/conduit-connector-weaviate",
     "stargazer_count": 0,
     "fork_count": 0,
     "releases": null
