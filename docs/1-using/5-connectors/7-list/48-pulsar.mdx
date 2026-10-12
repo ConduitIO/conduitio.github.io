@@ -1,0 +1,280 @@
+---
+IMPORTANT: This file was generated using src/connectorgen/main.go. DO NOT EDIT.
+
+title: "pulsar"
+description: "An Apache Pulsar source and destination plugin for Conduit, written in Go."
+---
+
+import ReactDiffViewer from 'react-diff-viewer-continued';
+import Chip from '@mui/material/Chip';
+import Box from "@mui/system/Box";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import Link from '@mui/material/Link';
+import StarIcon from '@mui/icons-material/Star';
+import Tooltip from '@mui/material/Tooltip';
+
+# pulsar
+
+<Box sx={{
+  display: 'flex',
+  alignItems: 'center',
+  gap: 2,
+  marginBottom: 4,
+  borderRadius: 1,
+  padding: 2,
+  backgroundColor: 'rgba(0, 0, 0, 0.03)'
+}}>
+  {/* Author info */}
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <span>Author: Meroxa, Inc.</span>
+    <Tooltip title="Created by the Conduit team">
+      <img src='/img/conduit/conduit-ring.png' width='18' alt="Conduit team logo" />
+    </Tooltip>
+  </Box>
+
+  {/* Divider */}
+  <Box sx={{ borderLeft: '1px solid rgba(0, 0, 0, 0.12)', height: 24 }} />
+
+  {/* GitHub link */}
+  <Link
+    href="https://github.com/conduitio-labs/conduit-connector-pulsar"
+    target="_blank"
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 0.5,
+      color: 'inherit',
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    }}
+  >
+    <GitHubIcon sx={{ fontSize: '1.5rem' }} />
+  </Link>
+
+  {/* Stars */}
+  <Chip
+    icon={<StarIcon sx={{ fontSize: '1rem' }} />}
+    label="0"
+    size="small"
+    sx={{ height: 24 }}
+  />
+</Box>
+
+## Latest release
+
+- [conduit-connector-pulsar_0.1.1_Darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Darwin_arm64.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Darwin_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Darwin_x86_64.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Linux_arm64.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Linux_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Linux_i386.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Linux_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Linux_x86_64.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Windows_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Windows_arm64.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Windows_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Windows_i386.tar.gz)
+- [conduit-connector-pulsar_0.1.1_Windows_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/conduit-connector-pulsar_0.1.1_Windows_x86_64.tar.gz)
+- [pulsar_v0.1.1_darwin_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_darwin_amd64.tar.gz)
+- [pulsar_v0.1.1_darwin_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_darwin_amd64.tar.gz.sigstore.json)
+- [pulsar_v0.1.1_darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_darwin_arm64.tar.gz)
+- [pulsar_v0.1.1_darwin_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_darwin_arm64.tar.gz.sigstore.json)
+- [pulsar_v0.1.1_linux_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_linux_amd64.tar.gz)
+- [pulsar_v0.1.1_linux_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_linux_amd64.tar.gz.sigstore.json)
+- [pulsar_v0.1.1_linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_linux_arm64.tar.gz)
+- [pulsar_v0.1.1_linux_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/conduitio-labs/conduit-connector-pulsar/releases/download/v0.1.1/pulsar_v0.1.1_linux_arm64.tar.gz.sigstore.json)
+
+## Description
+
+An Apache Pulsar source and destination plugin for Conduit, written in Go.
+
+## Source Parameters
+
+```yaml
+version: 2.2
+pipelines:
+  - id: example
+    status: running
+    connectors:
+      - id: example-source
+        type: source
+        plugin: "pulsar"
+        name: example-source
+        settings:
+          # The Pulsar topic used by the connector.
+          # Type: string
+          topic: ""
+          # The pulsar instance to connect to.
+          # Type: string
+          url: ""
+          # The duration for which the client will attempt to establish a
+          # connection before timing out.
+          # Type: duration
+          connectionTimeout: ""
+          # Disables pulsar client logs
+          # Type: bool
+          disableLogging: ""
+          # Determines if the client should support transactions.
+          # Type: bool
+          enableTransaction: ""
+          # Limits the number of connections to each broker.
+          # Type: int
+          maxConnectionsPerBroker: ""
+          # Sets the memory limit for the client in bytes. If the limit is
+          # exceeded, the client may start to block or fail operations.
+          # Type: int
+          memoryLimitBytes: ""
+          # The duration after which an operation is considered to have timed
+          # out.
+          # Type: duration
+          operationTimeout: ""
+          # The name of the subscription to be used for consuming messages.
+          # Type: string
+          subscriptionName: ""
+          # Whether the internal Pulsar client accepts untrusted TLS certificate
+          # from broker (default: false)
+          # Type: bool
+          tlsAllowInsecureConnection: ""
+          # The path to the TLS certificate file
+          # Type: string
+          tlsCertificateFile: ""
+          # The path to the TLS key file
+          # Type: string
+          tlsKeyFilePath: ""
+          # The path to the trusted TLS certificate file
+          # Type: string
+          tlsTrustCertsFilePath: ""
+          # Whether the pulsar client verifies the validity of the host name
+          # from broker (default: false)
+          # Type: bool
+          tlsValidateHostname: ""
+          # Maximum delay before an incomplete batch is read from the source.
+          # Type: duration
+          sdk.batch.delay: "0"
+          # Maximum size of batch before it gets read from the source.
+          # Type: int
+          sdk.batch.size: "0"
+          # Specifies whether to use a schema context name. If set to false, no
+          # schema context name will be used, and schemas will be saved with the
+          # subject name specified in the connector (not safe because of name
+          # conflicts).
+          # Type: bool
+          sdk.schema.context.enabled: "true"
+          # Schema context name to be used. Used as a prefix for all schema
+          # subject names. If empty, defaults to the connector ID.
+          # Type: string
+          sdk.schema.context.name: ""
+          # Whether to extract and encode the record key with a schema.
+          # Type: bool
+          sdk.schema.extract.key.enabled: "true"
+          # The subject of the key schema. If the record metadata contains the
+          # field "opencdc.collection" it is prepended to the subject name and
+          # separated with a dot.
+          # Type: string
+          sdk.schema.extract.key.subject: "key"
+          # Whether to extract and encode the record payload with a schema.
+          # Type: bool
+          sdk.schema.extract.payload.enabled: "true"
+          # The subject of the payload schema. If the record metadata contains
+          # the field "opencdc.collection" it is prepended to the subject name
+          # and separated with a dot.
+          # Type: string
+          sdk.schema.extract.payload.subject: "payload"
+          # The type of the payload schema.
+          # Type: string
+          sdk.schema.extract.type: "avro"
+```
+
+## Destination Parameters
+
+```yaml
+version: 2.2
+pipelines:
+  - id: example
+    status: running
+    connectors:
+      - id: example-destination
+        type: destination
+        plugin: "pulsar"
+        name: example-destination
+        settings:
+          # The Pulsar topic used by the connector.
+          # Type: string
+          topic: ""
+          # The pulsar instance to connect to.
+          # Type: string
+          url: ""
+          # The duration for which the client will attempt to establish a
+          # connection before timing out.
+          # Type: duration
+          connectionTimeout: ""
+          # Disables pulsar client logs
+          # Type: bool
+          disableLogging: ""
+          # Determines if the client should support transactions.
+          # Type: bool
+          enableTransaction: ""
+          # Limits the number of connections to each broker.
+          # Type: int
+          maxConnectionsPerBroker: ""
+          # Sets the memory limit for the client in bytes. If the limit is
+          # exceeded, the client may start to block or fail operations.
+          # Type: int
+          memoryLimitBytes: ""
+          # The duration after which an operation is considered to have timed
+          # out.
+          # Type: duration
+          operationTimeout: ""
+          # Whether the internal Pulsar client accepts untrusted TLS certificate
+          # from broker (default: false)
+          # Type: bool
+          tlsAllowInsecureConnection: ""
+          # The path to the TLS certificate file
+          # Type: string
+          tlsCertificateFile: ""
+          # The path to the TLS key file
+          # Type: string
+          tlsKeyFilePath: ""
+          # The path to the trusted TLS certificate file
+          # Type: string
+          tlsTrustCertsFilePath: ""
+          # Whether the pulsar client verifies the validity of the host name
+          # from broker (default: false)
+          # Type: bool
+          tlsValidateHostname: ""
+          # Maximum delay before an incomplete batch is written to the
+          # destination.
+          # Type: duration
+          sdk.batch.delay: "0"
+          # Maximum size of batch before it gets written to the destination.
+          # Type: int
+          sdk.batch.size: "0"
+          # Allow bursts of at most X records (0 or less means that bursts are
+          # not limited). Only takes effect if a rate limit per second is set.
+          # Note that if `sdk.batch.size` is bigger than `sdk.rate.burst`, the
+          # effective batch size will be equal to `sdk.rate.burst`.
+          # Type: int
+          sdk.rate.burst: "0"
+          # Maximum number of records written per second (0 means no rate
+          # limit).
+          # Type: float
+          sdk.rate.perSecond: "0"
+          # The format of the output record. See the Conduit documentation for a
+          # full list of supported formats
+          # (https://conduit.io/docs/using/connectors/configuration-parameters/output-format).
+          # Type: string
+          sdk.record.format: "opencdc/json"
+          # Options to configure the chosen output record format. Options are
+          # normally key=value pairs separated with comma (e.g.
+          # opt1=val2,opt2=val2), except for the `template` record format, where
+          # options are a Go template.
+          # Type: string
+          sdk.record.format.options: ""
+          # Whether to extract and decode the record key with a schema.
+          # Type: bool
+          sdk.schema.extract.key.enabled: "true"
+          # Whether to extract and decode the record payload with a schema.
+          # Type: bool
+          sdk.schema.extract.payload.enabled: "true"
+```
