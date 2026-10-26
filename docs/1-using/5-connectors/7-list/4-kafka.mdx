@@ -68,8 +68,22 @@ import Tooltip from '@mui/material/Tooltip';
 
 ## Latest release
 
-- [kafka_v0.14.0_darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.14.0/kafka_v0.14.0_darwin_arm64.tar.gz)
-- [kafka_v0.14.0_darwin_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.14.0/kafka_v0.14.0_darwin_arm64.tar.gz.sigstore.json)
+- [conduit-connector-kafka_0.16.0_Darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Darwin_arm64.tar.gz)
+- [conduit-connector-kafka_0.16.0_Darwin_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Darwin_x86_64.tar.gz)
+- [conduit-connector-kafka_0.16.0_Linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Linux_arm64.tar.gz)
+- [conduit-connector-kafka_0.16.0_Linux_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Linux_i386.tar.gz)
+- [conduit-connector-kafka_0.16.0_Linux_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Linux_x86_64.tar.gz)
+- [conduit-connector-kafka_0.16.0_Windows_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Windows_arm64.tar.gz)
+- [conduit-connector-kafka_0.16.0_Windows_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Windows_i386.tar.gz)
+- [conduit-connector-kafka_0.16.0_Windows_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/conduit-connector-kafka_0.16.0_Windows_x86_64.tar.gz)
+- [kafka_v0.16.0_darwin_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_darwin_amd64.tar.gz)
+- [kafka_v0.16.0_darwin_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_darwin_amd64.tar.gz.sigstore.json)
+- [kafka_v0.16.0_darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_darwin_arm64.tar.gz)
+- [kafka_v0.16.0_darwin_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_darwin_arm64.tar.gz.sigstore.json)
+- [kafka_v0.16.0_linux_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_linux_amd64.tar.gz)
+- [kafka_v0.16.0_linux_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_linux_amd64.tar.gz.sigstore.json)
+- [kafka_v0.16.0_linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_linux_arm64.tar.gz)
+- [kafka_v0.16.0_linux_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-kafka/releases/download/v0.16.0/kafka_v0.16.0_linux_arm64.tar.gz.sigstore.json)
 
 ## Description
 
@@ -280,6 +294,15 @@ mode works on both brokers; Redpanda does not return or enforce the
 `message.timestamp.before/after.max.ms` bounds, so only the timestamp type and
 retention rules can differ from Apache Kafka.
 
+## Host-supplied dialer
+
+If the host that runs the connector puts a dialer on the context
+(`dialer.WithDialContext` from `conduit-commons`), the connector opens every
+broker connection through it: the seed brokers, brokers discovered from
+metadata, reconnects, and the admin and metadata requests. When TLS is
+enabled, the handshake runs over the connection the host dialer returns.
+Without a host dialer the connector dials directly, as before.
+
 ## Source Parameters
 
 ```yaml
@@ -350,6 +373,14 @@ pipelines:
           # continually retry on group join errors.
           # Type: bool
           retryGroupJoinErrors: "true"
+          # AllowPlaintext lets SASL authenticate over a connection that is not
+          # protected by TLS (tls.enabled is false). This exposes the SASL
+          # credentials, and with PLAIN the password itself, to anyone who can
+          # observe the network path to the brokers. By default the connector
+          # refuses to start in that configuration. Only set this for a trusted
+          # network, such as a local development cluster.
+          # Type: bool
+          saslAllowPlaintext: ""
           # Mechanism configures the connector to use SASL authentication. If
           # empty, no authentication will be performed.
           # Type: string
@@ -472,6 +503,14 @@ pipelines:
           # 1h.
           # Type: duration
           produceTimeout: "2m"
+          # AllowPlaintext lets SASL authenticate over a connection that is not
+          # protected by TLS (tls.enabled is false). This exposes the SASL
+          # credentials, and with PLAIN the password itself, to anyone who can
+          # observe the network path to the brokers. By default the connector
+          # refuses to start in that configuration. Only set this for a trusted
+          # network, such as a local development cluster.
+          # Type: bool
+          saslAllowPlaintext: ""
           # Mechanism configures the connector to use SASL authentication. If
           # empty, no authentication will be performed.
           # Type: string

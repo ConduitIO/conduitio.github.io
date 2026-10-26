@@ -68,10 +68,22 @@ import Tooltip from '@mui/material/Tooltip';
 
 ## Latest release
 
-- [s3_v0.11.0_darwin_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.11.0/s3_v0.11.0_darwin_amd64.tar.gz)
-- [s3_v0.11.0_darwin_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.11.0/s3_v0.11.0_darwin_amd64.tar.gz.sigstore.json)
-- [s3_v0.11.0_darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.11.0/s3_v0.11.0_darwin_arm64.tar.gz)
-- [s3_v0.11.0_darwin_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.11.0/s3_v0.11.0_darwin_arm64.tar.gz.sigstore.json)
+- [conduit-connector-s3_0.12.0_Darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Darwin_arm64.tar.gz)
+- [conduit-connector-s3_0.12.0_Darwin_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Darwin_x86_64.tar.gz)
+- [conduit-connector-s3_0.12.0_Linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Linux_arm64.tar.gz)
+- [conduit-connector-s3_0.12.0_Linux_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Linux_i386.tar.gz)
+- [conduit-connector-s3_0.12.0_Linux_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Linux_x86_64.tar.gz)
+- [conduit-connector-s3_0.12.0_Windows_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Windows_arm64.tar.gz)
+- [conduit-connector-s3_0.12.0_Windows_i386.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Windows_i386.tar.gz)
+- [conduit-connector-s3_0.12.0_Windows_x86_64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/conduit-connector-s3_0.12.0_Windows_x86_64.tar.gz)
+- [s3_v0.12.0_darwin_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_darwin_amd64.tar.gz)
+- [s3_v0.12.0_darwin_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_darwin_amd64.tar.gz.sigstore.json)
+- [s3_v0.12.0_darwin_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_darwin_arm64.tar.gz)
+- [s3_v0.12.0_darwin_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_darwin_arm64.tar.gz.sigstore.json)
+- [s3_v0.12.0_linux_amd64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_linux_amd64.tar.gz)
+- [s3_v0.12.0_linux_amd64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_linux_amd64.tar.gz.sigstore.json)
+- [s3_v0.12.0_linux_arm64.tar.gz](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_linux_arm64.tar.gz)
+- [s3_v0.12.0_linux_arm64.tar.gz.sigstore.json](https://conduit.gateway.scarf.sh/connector/download/ConduitIO/conduit-connector-s3/releases/download/v0.12.0/s3_v0.12.0_linux_arm64.tar.gz.sigstore.json)
 
 ## Description
 
@@ -178,6 +190,21 @@ The connector goes through two modes.
     when newer objects were seen in the meantime (multipart uploads carry
     their initiation time);
   * replica buckets whose replication lag exceeds `lookbackPeriod`;
+  * a multipart upload that shares its initiation second with another object
+    of the same key (a version already listed, or a second upload) is not
+    tracked: it holds the settled cut instead (log code
+    `s3.source.cut_held_same_second`, a warning every 15 minutes once the
+    hold is older than that). New objects are delivered early until
+    `cdc.maxEarlyObjects` is full and the rest wait, for as long as the
+    upload runs, up to `cdc.maxPendingUploadAge`; after that the hold is
+    released and the upload is tracked. Nothing is lost, only latency
+    grows;
+  * a multipart upload that is older than `cdc.maxPendingUploadAge` when
+    the source first sees it, and shares its second with nothing, is not
+    tracked (log code `s3.source.stale_upload_ignored`, error level): if it
+    completes later its object can be missed. Abort such uploads, or add an
+    AbortIncompleteMultipartUpload lifecycle rule with DaysAfterInitiation
+    at most `cdc.maxPendingUploadAge`;
   * an identical re-put of an object within the same second is not seen as a
     change;
   * in an unversioned bucket an overwrite is reported as a create (there is
@@ -657,10 +684,10 @@ pipelines:
           # Maximum delay before an incomplete batch is written to the
           # destination.
           # Type: duration
-          sdk.batch.delay: "0"
+          sdk.batch.delay: "1s"
           # Maximum size of batch before it gets written to the destination.
           # Type: int
-          sdk.batch.size: "0"
+          sdk.batch.size: "1000"
           # Allow bursts of at most X records (0 or less means that bursts are
           # not limited). Only takes effect if a rate limit per second is set.
           # Note that if `sdk.batch.size` is bigger than `sdk.rate.burst`, the
