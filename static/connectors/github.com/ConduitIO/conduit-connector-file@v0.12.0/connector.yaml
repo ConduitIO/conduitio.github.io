@@ -1,0 +1,274 @@
+version: "1.0"
+specification:
+  name: file
+  summary: A file source and destination plugin for Conduit.
+  description: |-
+    ## How it works
+
+    The Source connector listens for changes appended to the source file and
+    sends records with the changes.
+    The Destination connector receives records and writes them to a file.
+
+    ### Source
+
+    The Source connector only cares to have a valid path, even if the file
+    doesn't exist, it will still run and wait until a file with the configured
+    name is there, then it will start listening to changes and sending records.
+    The file is followed by the connector itself.
+    A line is read once its newline has been written; a record is never a piece
+    of a line. A last line without a newline is held until its newline is
+    written or the file is rotated or truncated. A graceful stop does not emit
+    it either: the position stays at the start of that line and the whole line
+    is read after the restart. For writers that never terminate their last line, set
+    `quietPeriod` (off by default) and the line is also read once the file has
+    not changed for that long.
+    A line longer than `maxLineSize` (default 16 MiB) stops the source with
+    FILE_LINE_TOO_LONG; lines are never truncated. A path that is not a regular
+    file (a FIFO, a device) is refused.
+    When the file is rotated (renamed, removed or replaced) the source reads the
+    old file until its size has been stable for `rotation.settle` (default 1s):
+    a writer that still holds the old file open keeps appending until it is told
+    to reopen. Then it reads the new file from its first byte. The old file is
+    kept open for a few minutes and read again if it grows once more. When the file
+    is truncated (copytruncate) it is read again from its start; lines that
+    were written but not yet read when it was truncated now exist only in the
+    copy: with `rotatedPattern` the source finds the copy by its first bytes and
+    reads them from there, without it the source stops with
+    FILE_ROTATION_TAIL_UNREADABLE.
+    The source never skips the unread data of a rotated file silently. If it
+    cannot account for it, it stops with error code FILE_ROTATION_TAIL_UNREADABLE
+    (naming the path and the fix). That happens when the file the saved position
+    belongs to cannot be found after a restart (deleted, compressed, moved
+    away, or truncated in place), when a file was written between the rotated
+    file and the current one that the source never saw at the path (two
+    rotations in a row), and when a file is truncated with unread data in it. Set
+    `rotatedPattern`, a glob such as `app.log.*`, and the source finds the
+    rotation chain itself, orders it by modification time and reads each file
+    in turn: the old file's tail, the files in between from their first byte,
+    then the current file. A compressed rotated file cannot be read and stops
+    the source too. Operators who prefer to continue can set
+    `rotation.acceptLoss: true`: the source then logs the same code as a
+    warning, with the size of what it skips, and carries on.
+    A position records the file's identity (device, inode, a hash of its first
+    4 KiB) and the byte offset. On restart the source resumes at the offset if
+    the file at the path is that file (same inode, size at least the offset and
+    same first bytes; the device number may differ, it changes across remounts); if it was rotated while the connector
+    was stopped it finishes the rotated-away file (found by inode next to the
+    path, or among the files `rotatedPattern` matches) and then reads the new
+    file from its start. Positions written by
+    v0.10.x (a bare offset) are accepted if the offset is within the file and
+    follows a newline, with a warning (code FILE_POSITION_UNVERIFIABLE) that
+    gives the offset, size, inode and modification time, because such a position
+    carries no file identity: if the file was rotated while upgrading, the first
+    offset bytes of the current file are skipped. Otherwise the source refuses to
+    start with error code FILE_POSITION_UNVERIFIABLE. Other codes: FILE_POSITION_INVALID,
+    FILE_IDENTITY_UNKNOWN. After the first record, positions are in the new
+    format, which v0.10.x cannot read.
+
+    ### Destination
+
+    > **Output files created by earlier versions stay world-readable (0644).**
+    > This version creates them 0600, but it never changes the mode of an
+    > existing file: run `chmod 600` on the output files of existing pipelines.
+
+    The Destination connector will create the file if it doesn't exist, and
+    records with changes will be appended to the destination file when received.
+    A file created by the connector is readable and writable by its owner only
+    (mode 0600, further restricted by the process umask). The mode of an
+    existing file is never changed: **output files created by earlier versions
+    are world-readable (0644); run `chmod 600` on them after upgrading.**
+    An embedding engine can supply the open function through `file.WithOpener`
+    (both the source and the destination use it) and a check for the directories
+    the source lists to find rotated files through `file.WithDirChecker`.
+  version: v0.12.0
+  author: Meroxa, Inc.
+  source:
+    parameters:
+      - name: path
+        description: Path is the file path used by the connector to read/write records.
+        type: string
+        default: ""
+        validations:
+          - type: required
+            value: ""
+      - name: maxLineSize
+        description: |-
+          MaxLineSize is the longest line, in bytes, that is read. A longer line
+          stops the source with the error FILE_LINE_TOO_LONG; a line is never
+          truncated.
+        type: int
+        default: "16777216"
+        validations:
+          - type: greater-than
+            value: "0"
+      - name: quietPeriod
+        description: |-
+          QuietPeriod is opt-in and off (0) by default. By default the last line
+          of the file, when it has no trailing newline yet, is held until its
+          newline is written, the file is rotated or truncated, or the connector is
+          stopped gracefully, so a record is never a piece of a line. Set a duration
+          to also read such a line once the file has not changed for that long, for
+          writers that never terminate their last line.
+        type: duration
+        default: "0"
+        validations: []
+      - name: rotatedPattern
+        description: |-
+          RotatedPattern is a glob that matches the rotated files of the path, for
+          example "app.log.*" (relative to the directory of path unless it is
+          absolute). Wildcards are only allowed in the last component, so the
+          directory is literal; an embedding engine may refuse it
+          (file.WithDirChecker). With it the source finds the rotation chain itself, orders it
+          by modification time and reads every file in turn: the tail of the file
+          it was reading, the files rotated in between from their first byte, then
+          the current file. Without it the source stops with the error
+          FILE_ROTATION_TAIL_UNREADABLE when it cannot account for a rotated file's
+          unread tail. Compressed files are not read.
+        type: string
+        default: ""
+        validations: []
+      - name: rotation.acceptLoss
+        description: |-
+          RotationAcceptLoss makes the source continue, with a warning that names
+          the code and the size of what is skipped, when the unread tail of a
+          rotated file cannot be read, instead of stopping.
+        type: bool
+        default: "false"
+        validations: []
+      - name: rotation.settle
+        description: |-
+          RotationSettle is how long a rotated file's size must stay unchanged
+          before the source leaves it for the next file. A writer that still holds
+          the old file open (logrotate renames, then signals the program later)
+          keeps appending to it, and those lines are read first. A file that grows
+          again after the source left it is read again for a while. 0 switches at
+          once.
+        type: duration
+        default: 1s
+        validations: []
+      - name: sdk.batch.delay
+        description: |-
+          Maximum delay before an incomplete batch is read from the source. 0
+          returns what is already queued without waiting.
+        type: duration
+        default: "0"
+        validations: []
+      - name: sdk.batch.size
+        description: Maximum size of batch before it gets read from the source.
+        type: int
+        default: "100"
+        validations:
+          - type: greater-than
+            value: "-1"
+      - name: sdk.schema.context.enabled
+        description: |-
+          Specifies whether to use a schema context name. If set to false, no schema context name will
+          be used, and schemas will be saved with the subject name specified in the connector
+          (not safe because of name conflicts).
+        type: bool
+        default: "true"
+        validations: []
+      - name: sdk.schema.context.name
+        description: |-
+          Schema context name to be used. Used as a prefix for all schema subject names.
+          If empty, defaults to the connector ID.
+        type: string
+        default: ""
+        validations: []
+      - name: sdk.schema.extract.key.enabled
+        description: Whether to extract and encode the record key with a schema.
+        type: bool
+        default: "false"
+        validations: []
+      - name: sdk.schema.extract.key.subject
+        description: |-
+          The subject of the key schema. If the record metadata contains the field
+          "opencdc.collection" it is prepended to the subject name and separated
+          with a dot.
+        type: string
+        default: key
+        validations: []
+      - name: sdk.schema.extract.payload.enabled
+        description: Whether to extract and encode the record payload with a schema.
+        type: bool
+        default: "false"
+        validations: []
+      - name: sdk.schema.extract.payload.subject
+        description: |-
+          The subject of the payload schema. If the record metadata contains the
+          field "opencdc.collection" it is prepended to the subject name and
+          separated with a dot.
+        type: string
+        default: payload
+        validations: []
+      - name: sdk.schema.extract.type
+        description: The type of the payload schema.
+        type: string
+        default: avro
+        validations:
+          - type: inclusion
+            value: avro
+  destination:
+    parameters:
+      - name: path
+        description: Path is the file path used by the connector to read/write records.
+        type: string
+        default: ""
+        validations:
+          - type: required
+            value: ""
+      - name: sdk.batch.delay
+        description: Maximum delay before an incomplete batch is written to the destination.
+        type: duration
+        default: "0"
+        validations: []
+      - name: sdk.batch.size
+        description: Maximum size of batch before it gets written to the destination.
+        type: int
+        default: "0"
+        validations:
+          - type: greater-than
+            value: "-1"
+      - name: sdk.rate.burst
+        description: |-
+          Allow bursts of at most X records (0 or less means that bursts are not
+          limited). Only takes effect if a rate limit per second is set. Note that
+          if `sdk.batch.size` is bigger than `sdk.rate.burst`, the effective batch
+          size will be equal to `sdk.rate.burst`.
+        type: int
+        default: "0"
+        validations:
+          - type: greater-than
+            value: "-1"
+      - name: sdk.rate.perSecond
+        description: Maximum number of records written per second (0 means no rate limit).
+        type: float
+        default: "0"
+        validations:
+          - type: greater-than
+            value: "-1"
+      - name: sdk.record.format
+        description: |-
+          The format of the output record. See the Conduit documentation for a full
+          list of supported formats (https://conduitdata.io/docs/using/connectors/configuration-parameters/output-format).
+        type: string
+        default: opencdc/json
+        validations: []
+      - name: sdk.record.format.options
+        description: |-
+          Options to configure the chosen output record format. Options are normally
+          key=value pairs separated with comma (e.g. opt1=val2,opt2=val2), except
+          for the `template` record format, where options are a Go template.
+        type: string
+        default: ""
+        validations: []
+      - name: sdk.schema.extract.key.enabled
+        description: Whether to extract and decode the record key with a schema.
+        type: bool
+        default: "true"
+        validations: []
+      - name: sdk.schema.extract.payload.enabled
+        description: Whether to extract and decode the record payload with a schema.
+        type: bool
+        default: "true"
+        validations: []
